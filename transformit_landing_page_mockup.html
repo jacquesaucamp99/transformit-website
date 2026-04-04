@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TransformIT Consulting</title>
+  <style>
+    :root{
+      --bg:#0b1320;
+      --bg-soft:#111b2d;
+      --panel:#ffffff;
+      --panel-soft:#f5f7fa;
+      --text:#152033;
+      --text-light:#56637a;
+      --brand:#123b73;
+      --brand-2:#1f5fbf;
+      --line:#dbe3ef;
+      --accent:#dbe8ff;
+      --max:1180px;
+      --shadow:0 18px 45px rgba(16, 28, 46, 0.12);
+      --radius:20px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:#eef3f8;
+      line-height:1.55;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .site-shell{
+      min-height:100vh;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:30;
+      backdrop-filter: blur(10px);
+      background:rgba(11,19,32,0.86);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      min-height:74px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      color:#fff;
+      font-weight:700;
+      letter-spacing:.01em;
+    }
+
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:linear-gradient(135deg, #2a6bd8, #0f2f62);
+      display:grid;
+      place-items:center;
+      box-shadow:0 10px 25px rgba(0,0,0,0.25);
+      font-size:16px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:24px;
+      align-items:center;
+      color:rgba(255,255,255,0.9);
+      font-size:14px;
+    }
+
+    .nav-links a:hover{color:#fff}
+
+    .nav-cta{
+      padding:12px 16px;
+      border-radius:999px;
+      background:#fff;
+      color:var(--bg);
+      font-weight:600;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at top right, rgba(65,124,228,0.32), transparent 30%),
+        linear-gradient(160deg, #08111d 0%, #102038 42%, #17345a 100%);
+      color:#fff;
+      padding:84px 0 72px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:42px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.1);
+      color:#dfeaff;
+      font-size:13px;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-size:clamp(2.3rem, 5vw, 4.2rem);
+      line-height:1.05;
+      margin:0 0 18px;
+      letter-spacing:-0.03em;
+      max-width:760px;
+    }
+
+    .hero-sub{
+      font-size:1.1rem;
+      color:#d8e4f7;
+      margin:0 0 18px;
+      max-width:740px;
+    }
+
+    .hero-copy{
+      max-width:760px;
+      color:#bdd0ea;
+      margin:0 0 28px;
+      font-size:1rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 20px;
+      border-radius:999px;
+      font-weight:600;
+      border:1px solid transparent;
+      transition:.2s ease;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:var(--bg);
+    }
+
+    .btn-secondary{
+      background:transparent;
+      color:#fff;
+      border-color:rgba(255,255,255,0.24);
+    }
+
+    .btn:hover{transform:translateY(-1px)}
+
+    .hero-card{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:28px;
+      padding:24px;
+      box-shadow:0 24px 60px rgba(0,0,0,0.22);
+    }
+
+    .hero-card h3{
+      margin:0 0 16px;
+      font-size:1rem;
+      color:#eef5ff;
+    }
+
+    .hero-card ul{
+      margin:0;
+      padding-left:18px;
+      color:#c8d7ec;
+    }
+
+    .hero-card li+li{margin-top:10px}
+
+    .section{
+      padding:72px 0;
+    }
+
+    .section-heading{
+      max-width:720px;
+      margin-bottom:28px;
+    }
+
+    .section-heading h2{
+      font-size:clamp(1.7rem, 3vw, 2.4rem);
+      line-height:1.1;
+      letter-spacing:-0.02em;
+      margin:0 0 12px;
+    }
+
+    .section-heading p{
+      margin:0;
+      color:var(--text-light);
+      font-size:1rem;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:32px;
+      align-items:start;
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+
+    .muted-card{
+      background:var(--panel-soft);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:28px;
+    }
+
+    .copy p{
+      margin:0 0 16px;
+      color:var(--text-light);
+    }
+
+    .copy p:last-child{margin-bottom:0}
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:16px;
+    }
+
+    .stat{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:22px;
+    }
+
+    .stat strong{
+      display:block;
+      font-size:1.7rem;
+      color:var(--brand);
+      margin-bottom:8px;
+      letter-spacing:-0.02em;
+    }
+
+    .capabilities{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:18px;
+    }
+
+    .capability{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:22px;
+      min-height:160px;
+    }
+
+    .capability h3{
+      margin:0 0 10px;
+      font-size:1.05rem;
+      line-height:1.25;
+    }
+
+    .capability p{
+      margin:0;
+      color:var(--text-light);
+      font-size:.96rem;
+    }
+
+    .why-grid{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0,1fr));
+      gap:16px;
+    }
+
+    .why-item{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+    }
+
+    .why-item h3{
+      font-size:1rem;
+      margin:0 0 10px;
+      line-height:1.25;
+    }
+
+    .why-item p{
+      margin:0;
+      color:var(--text-light);
+      font-size:.94rem;
+    }
+
+    .leader-grid{
+      display:grid;
+      grid-template-columns:340px 1fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .portrait{
+      background:linear-gradient(180deg, #dfe8f7, #cfdbee);
+      border:1px solid var(--line);
+      border-radius:24px;
+      aspect-ratio:4 / 5;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:24px;
+      color:#46607d;
+      font-size:.98rem;
+    }
+
+    .leader-name{
+      font-size:1.35rem;
+      margin:0 0 8px;
+    }
+
+    .leader-role{
+      color:var(--brand);
+      font-weight:600;
+      margin:0 0 18px;
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1fr .9fr;
+      gap:24px;
+    }
+
+    .contact-list{
+      display:grid;
+      gap:14px;
+      margin-top:22px;
+    }
+
+    .contact-item{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:16px 18px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+    }
+
+    .contact-item strong{
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .small{
+      color:var(--text-light);
+      font-size:.95rem;
+    }
+
+    .note-box{
+      background:linear-gradient(180deg, #123b73, #0e2d57);
+      color:#fff;
+      border-radius:20px;
+      padding:26px;
+      box-shadow:var(--shadow);
+    }
+
+    .note-box p{
+      color:#d7e4f6;
+      margin:0 0 14px;
+    }
+
+    .footer{
+      padding:28px 0 48px;
+      color:#627189;
+      font-size:.95rem;
+    }
+
+    .footer-inner{
+      border-top:1px solid #d5dfeb;
+      padding-top:24px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      background:#edf4ff;
+      border:1px solid #d6e5ff;
+      color:#28579e;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:600;
+    }
+
+    .mockup-note{
+      width:min(var(--max), calc(100% - 32px));
+      margin:16px auto 0;
+      background:#fff7da;
+      border:1px solid #ecd78a;
+      color:#5e4d16;
+      padding:14px 16px;
+      border-radius:14px;
+      font-size:14px;
+    }
+
+    @media (max-width: 1100px){
+      .why-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+    }
+
+    @media (max-width: 900px){
+      .hero-grid,
+      .grid-2,
+      .leader-grid,
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+
+      .capabilities{
+        grid-template-columns:1fr;
+      }
+
+      .stats{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .nav{
+        flex-wrap:wrap;
+        padding:14px 0;
+      }
+
+      .nav-links{
+        width:100%;
+        justify-content:space-between;
+        overflow:auto;
+      }
+    }
+
+    @media (max-width: 640px){
+      .section{padding:56px 0}
+      .stats,
+      .why-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        padding-top:56px;
+      }
+
+      .nav-links{
+        gap:14px;
+        font-size:13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <div class="topbar">
+      <div class="container nav">
+        <a class="brand" href="#home">
+          <div class="brand-mark">T</div>
+          <div>TransformIT Consulting</div>
+        </a>
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#leadership">Leadership</a>
+          <a href="#contact" class="nav-cta">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Dubai-based advisory • GCC, Africa and selected international markets</div>
+          <h1>Governance-led advisory for banking, regulated, and enterprise transformation</h1>
+          <p class="hero-sub">
+            Founder-led transformation support with strength in programme recovery, delivery governance, enterprise platforms, and service operations modernisation.
+          </p>
+          <p class="hero-copy">
+            TransformIT Consulting is a Dubai-based advisory business helping organisations shape, mobilise, and execute complex transformation with stronger governance, delivery control, and practical operating discipline.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Contact TransformIT</a>
+            <a class="btn btn-secondary" href="#capabilities">Explore capabilities</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <h3>Where this mockup positions the business</h3>
+          <ul>
+            <li>Senior-led, credible and commercially grounded</li>
+            <li>Relevant to banking, regulated industries and enterprise change</li>
+            <li>Lean positioning without overstating scale</li>
+            <li>Suitable as a one-page landing site or a baseline for a fuller build</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="mockup-note">
+      <strong>Mockup note:</strong> This baseline uses a clean corporate style and includes a placeholder portrait block.
+      Replace that block with one of the uploaded photos if you want a more realistic next version.
+    </div>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-heading">
+          <span class="tag">Who We Are</span>
+          <h2>Built for complex transformation environments where delivery discipline matters</h2>
+        </div>
+
+        <div class="grid-2">
+          <div class="card copy">
+            <p>
+              TransformIT Consulting is a founder-led advisory business focused on banking, regulated, and enterprise transformation. The business helps organisations improve transformation execution, delivery governance, and platform-enabled operating change through practical, senior-led advisory.
+            </p>
+            <p>
+              Its work is particularly relevant in environments where programme recovery, regulated change, enterprise platform transformation, workflow modernisation, and service operations improvement matter.
+            </p>
+            <p>
+              TransformIT combines senior transformation leadership with access to trusted specialist capability across enterprise applications, workflow transformation, service modernisation, and platform-enabled change — creating a lean but credible model for partner-enabled growth across the GCC, Africa, and selected international markets.
+            </p>
+          </div>
+
+          <div class="muted-card">
+            <div class="stats">
+              <div class="stat">
+                <strong>25+ years</strong>
+                <span class="small">Senior transformation and programme delivery experience</span>
+              </div>
+              <div class="stat">
+                <strong>Multi-region</strong>
+                <span class="small">Africa, the UK, Europe and the GCC</span>
+              </div>
+              <div class="stat">
+                <strong>Founder-led</strong>
+                <span class="small">Direct senior involvement rather than layered teams</span>
+              </div>
+              <div class="stat">
+                <strong>Partner-ready</strong>
+                <span class="small">Designed to collaborate with clients and implementation partners</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="capabilities">
+      <div class="container">
+        <div class="section-heading">
+          <span class="tag">Capabilities</span>
+          <h2>Focused advisory capability across the areas that most often derail major change</h2>
+          <p>
+            TransformIT supports clients and partners with focused advisory capability across transformation governance, regulated change, enterprise platforms, workflow modernisation, and service operations improvement.
+          </p>
+        </div>
+
+        <div class="capabilities">
+          <div class="capability">
+            <h3>Programme Recovery &amp; Delivery Governance</h3>
+            <p>Restoring control, transparency, and execution discipline in complex programmes.</p>
+          </div>
+          <div class="capability">
+            <h3>Core Banking &amp; Regulated Transformation</h3>
+            <p>Supporting banking and regulated institutions through critical platform and operating model change.</p>
+          </div>
+          <div class="capability">
+            <h3>Enterprise Applications &amp; Workflow Transformation</h3>
+            <p>Modernising enterprise platforms, workflows, and operating models across HR, ERP, and service functions.</p>
+          </div>
+          <div class="capability">
+            <h3>Service Operations &amp; ITSM Modernisation</h3>
+            <p>Improving service management, operational visibility, and workflow control through modern ITSM and service operations capability.</p>
+          </div>
+          <div class="capability">
+            <h3>Transformation Strategy &amp; Advisory</h3>
+            <p>Helping organisations shape, mobilise, and de-risk major change initiatives.</p>
+          </div>
+          <div class="capability">
+            <h3>Flexible Specialist Support</h3>
+            <p>A lean operating model with access to trusted specialist capability where enterprise platform and workflow depth is required.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why">
+      <div class="container">
+        <div class="section-heading">
+          <span class="tag">Why TransformIT</span>
+          <h2>A positioning model built around credibility, control and practical senior involvement</h2>
+        </div>
+
+        <div class="why-grid">
+          <div class="why-item">
+            <h3>Senior-led credibility</h3>
+            <p>Clients and partners work directly with experienced transformation leadership rather than junior layers or generic advisory teams.</p>
+          </div>
+          <div class="why-item">
+            <h3>Governance and execution focus</h3>
+            <p>Best suited to situations where delivery structure, control, and disciplined mobilisation are critical to success.</p>
+          </div>
+          <div class="why-item">
+            <h3>Banking and regulated relevance</h3>
+            <p>Particular credibility in complex, regulated, and operationally demanding environments where trust and oversight matter.</p>
+          </div>
+          <div class="why-item">
+            <h3>Specialist capability without unnecessary overhead</h3>
+            <p>Combines founder-led advisory with access to trusted specialist capability while remaining lean and commercially relevant.</p>
+          </div>
+          <div class="why-item">
+            <h3>Partnership-oriented model</h3>
+            <p>Designed to work credibly with clients, implementation partners, and regional collaborators without overstating early-stage scale.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="leadership">
+      <div class="container">
+        <div class="section-heading">
+          <span class="tag">Leadership</span>
+          <h2>Experienced leadership at the centre of the proposition</h2>
+        </div>
+
+        <div class="leader-grid">
+          <div class="portrait">
+            <div>
+              <strong style="display:block; font-size:1.1rem; margin-bottom:8px;">Portrait placeholder</strong>
+              Replace with Edward Aucamp headshot or one of the uploaded business images
+            </div>
+          </div>
+
+          <div class="card copy">
+            <h3 class="leader-name">Edward Aucamp</h3>
+            <p class="leader-role">Senior transformation and programme delivery leader</p>
+            <p>
+              TransformIT Consulting is led by Edward Aucamp, a senior transformation and programme delivery leader with more than 25 years of experience across banking, regulated, and enterprise change in Africa, the UK, Europe, and the GCC.
+            </p>
+            <p>
+              His background spans core banking modernisation, programme recovery, PMO and transformation office mobilisation, regulatory change, payments modernisation, vendor governance, and multi-stakeholder delivery in complex transformation environments.
+            </p>
+            <p>
+              Based in Dubai, Edward leads TransformIT’s market-facing advisory work while drawing on trusted specialist capability across enterprise applications, workflows, and service operations where required.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-heading">
+          <span class="tag">Contact</span>
+          <h2>Start a conversation</h2>
+          <p>
+            If you would like to discuss transformation priorities, partnership opportunities, or advisory support, please get in touch.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card">
+            <div class="contact-list">
+              <div class="contact-item">
+                <div>👤</div>
+                <div>
+                  <strong>Edward Aucamp</strong>
+                  <div class="small">TransformIT Consulting</div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div>✉️</div>
+                <div>
+                  <strong>Email</strong>
+                  <div class="small"><a href="mailto:edwardaucamp@gmail.com">edwardaucamp@gmail.com</a></div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div>📱</div>
+                <div>
+                  <strong>Mobile</strong>
+                  <div class="small"><a href="tel:+971585911263">+971 58 591 1263</a></div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div>🔗</div>
+                <div>
+                  <strong>LinkedIn</strong>
+                  <div class="small"><a href="https://linkedin.com/company/transformit-consulting-uae" target="_blank" rel="noopener">linkedin.com/company/transformit-consulting-uae</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="note-box">
+            <h3 style="margin-top:0; margin-bottom:12px;">Regional focus</h3>
+            <p>Dubai-based advisory supporting GCC, Africa, and selected international opportunities.</p>
+            <p>This section could later become a short enquiry form, but for a first-version landing page the direct contact route is cleaner and more credible.</p>
+            <a class="btn btn-primary" href="mailto:edwardaucamp@gmail.com" style="margin-top:8px;">Email TransformIT</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>TransformIT Consulting</strong><br>
+          Governance-led advisory for banking, regulated, and enterprise transformation
+        </div>
+        <div>Dubai, United Arab Emirates</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
